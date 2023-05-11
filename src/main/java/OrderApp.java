@@ -116,7 +116,6 @@ public class OrderApp extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String number = JOptionPane.showInputDialog(orderPanel, "Enter Order Number", null);
                 try {
-                    transaction.begin();
                     CriteriaBuilder cb = entityManager.getCriteriaBuilder();
                     CriteriaQuery<Order> cr = cb.createQuery(Order.class);
                     Root<Order> root = cr.from(Order.class);
@@ -161,8 +160,9 @@ public class OrderApp extends JFrame{
                     txtDate.setText("");
                     txtPrice.setText("");
 
-                }catch(Exception err)
-                {
+                }catch(Exception err) {
+                    JOptionPane.showMessageDialog(orderPanel, "Error!");
+                }finally {
                     JOptionPane.showMessageDialog(orderPanel, "Order successfully deleted!");
                 }
             }
